@@ -1,13 +1,14 @@
-# TextAlive App API basic example
+# TextAlive App API lottie example
 
-API チュートリアル「1. 開発の始め方」のサンプルコードです。
-発声中の歌詞を単語単位で表示します。
-また、このアプリが TextAlive ホストと接続されていなければ再生コントロールを表示します。
+Adobe After Effects で作成したアニメーションを Lottie プラグインで書き出したものをビートに合わせて表示するサンプルコードです。 Lottie 関係の部分以外は [basic example](https://github.com/TextAliveJp/textalive-app-basic) そのままです。
 
-TextAlive ホストと接続された状態をテストするには [TextAlive App Debugger](https://developer.textalive.jp/app/run/?ta_app_url=https%3A%2F%2Ftextalivejp.github.io%2Ftextalive-app-basic%2F&ta_song_url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DygY2qObZv24) のページにアクセスしてください。
+リポジトリに含まれている [fw_white.json](src/assets/fw_white.json) が Lottie のアニメーションデータです。他のアニメーションに差し替えて遊んでみてください。アニメーションを作成する環境がない場合は LottieFiles で公開されている無償のアセットを探してみてください。
 
-- API チュートリアル「1. 開発の始め方」: https://developer.textalive.jp/app/
-- サンプルコードのデモページ: https://textalivejp.github.io/textalive-app-basic/
+- デモページ: https://textalivejp.github.io/textalive-app-lottie/
+- Lottie: https://airbnb.io/lottie/
+- LottieFiles: https://lottiefiles.com/
+
+TextAlive ホストと接続された状態をテストするには [TextAlive App Debugger](https://developer.textalive.jp/app/run/?ta_app_url=https%3A%2F%2Ftextalivejp.github.io%2Ftextalive-app-lottie%2F&ta_song_url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DygY2qObZv24) のページにアクセスしてください。
 
 **English version available in [README.en.md](./README.en.md).**
 
@@ -15,8 +16,8 @@ TextAlive ホストと接続された状態をテストするには [TextAlive A
 
 TextAlive App API で開発されたWebアプリケーションは、（特定の楽曲向けに作り込んでいない限り）URLのクエリパラメタで `ta_song_url={楽曲のURL}` を指定すると異なる楽曲で演出を試せます。
 
-- [ブレス・ユア・ブレス by 和田たけあき feat. 初音ミク](https://textalivejp.github.io/textalive-app-basic/?ta_song_url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3Da-Nf3QUFkOU)
-- [グリーンライツ・セレナーデ by Omoi feat. 初音ミク](https://textalivejp.github.io/textalive-app-basic/?ta_song_url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DXSLhsjepelI)
+- [ブレス・ユア・ブレス by 和田たけあき feat. 初音ミク](https://textalivejp.github.io/textalive-app-lottie/?ta_song_url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3Da-Nf3QUFkOU)
+- [グリーンライツ・セレナーデ by Omoi feat. 初音ミク](https://textalivejp.github.io/textalive-app-lottie/?ta_song_url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DXSLhsjepelI)
 
 ## 開発
 
@@ -29,7 +30,7 @@ npm run dev
 
 ## ビルド
 
-以下のコマンドで `docs` 以下にビルド済みファイルが生成されます。 [サンプルコードのデモページ](https://textalivejp.github.io/textalive-app-basic/) は [GitHub Pages](https://pages.github.com/) で、このリポジトリの `docs` 以下のファイルが提供されています。
+以下のコマンドで `docs` 以下にビルド済みファイルが生成されます。 [サンプルコードのデモページ](https://textalivejp.github.io/textalive-app-lottie/) は [GitHub Pages](https://pages.github.com/) で、このリポジトリの `docs` 以下のファイルが提供されています。
 
 ```sh
 npm run build
@@ -44,4 +45,4 @@ TextAlive App API は、音楽に合わせてタイミングよく歌詞が動�
 TextAlive App API について詳しくはWebサイト [TextAlive for Developers](https://developer.textalive.jp/) をご覧ください。
 
 ---
-https://github.com/TextAliveJp/textalive-app-basic
+https://github.com/TextAliveJp/textalive-app-lottie

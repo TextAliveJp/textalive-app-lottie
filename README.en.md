@@ -1,13 +1,17 @@
-# TextAlive App API basic example
+# TextAlive App API lottie example
+
+This example plays Lottie animation made with Adobe After Effects along with music playback. The example code is essentially the same as the [basic example](https://github.com/TextAliveJp/textalive-app-basic) except for the Lottie-related animation code.
+
+The Lottie animation file is stored as [fw_white.json](src/assets/fw_white.json). You could visit LottieFiles to find new Lottie animation files for free.
 
 This example corresponds to the first section of the API tutorial, "Get Started."
 It shows each word when being vocalized.
 It also displays playback control if it is not connected to a TextAlive host.
 
-To see this example connected to a TextAlive host, use [TextAlive App Debugger](https://developer.textalive.jp/app/run/?ta_app_url=https%3A%2F%2Ftextalivejp.github.io%2Ftextalive-app-basic%2F&ta_song_url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DygY2qObZv24).
+To see this example connected to a TextAlive host, use [TextAlive App Debugger](https://developer.textalive.jp/app/run/?ta_app_url=https%3A%2F%2Ftextalivejp.github.io%2Ftextalive-app-lottie%2F&ta_song_url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DygY2qObZv24).
 
 - API tutorial step 1. "Get Started": https://developer.textalive.jp/app/
-- Live demo: https://textalivejp.github.io/textalive-app-basic/
+- Live demo: https://textalivejp.github.io/textalive-app-lottie/
 
 **日本語は [README.md](./README.md) にあります。**
 
@@ -15,8 +19,8 @@ To see this example connected to a TextAlive host, use [TextAlive App Debugger](
 
 Web applications developed with TextAlive App API can play a song of your choice (if not designed to work with a specific one) by specifying a query parameter in the URL as  `ta_song_url={song URL}`.
 
-- [Bless your breath by WADATAKEAKI feat. Hatsune Miku](https://textalivejp.github.io/textalive-app-basic/?ta_song_url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3Da-Nf3QUFkOU)
-- [Greenlights Serenade by Omoi feat. Hatsune Miku](https://textalivejp.github.io/textalive-app-basic/?ta_song_url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DXSLhsjepelI)
+- [Bless your breath by WADATAKEAKI feat. Hatsune Miku](https://textalivejp.github.io/textalive-app-lottie/?ta_song_url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3Da-Nf3QUFkOU)
+- [Greenlights Serenade by Omoi feat. Hatsune Miku](https://textalivejp.github.io/textalive-app-lottie/?ta_song_url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DXSLhsjepelI)
 
 ## Develop
 
@@ -29,7 +33,7 @@ npm run dev
 
 ## Build
 
-Running the following command generates built files in the `docs` directory. [Live demo](https://textalivejp.github.io/textalive-app-basic/) is hosted by [GitHub Pages](https://pages.github.com/) configured to serve files in the `docs` directory.
+Running the following command generates built files in the `docs` directory. [Live demo](https://textalivejp.github.io/textalive-app-lottie/) is hosted by [GitHub Pages](https://pages.github.com/) configured to serve files in the `docs` directory.
 
 ```sh
 npm run build
@@ -44,4 +48,4 @@ TextAlive App API is the JavaScript API for developing "lyric apps" (cf. lyric v
 For more details on the TextAlive App API, please visit the website [TextAlive for Developers](https://developer.textalive.jp/).
 
 ---
-https://github.com/TextAliveJp/textalive-app-basic
+https://github.com/TextAliveJp/textalive-app-lottie
