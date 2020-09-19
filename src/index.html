@@ -1,18 +1,19 @@
 <html>
   <head>
-    <title>TextAlive App API | basic example</title>
+    <title>TextAlive App API | Lottie example</title>
     <link rel="stylesheet" href="index.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
   </head>
   <body>
     <div id="overlay"><button class="play" disabled>再生</button></div>
     <div id="container">
-      <div>
+        <div>
         <p id="lyrics">
           <span id="text"></span>
         </p>
-      </div>
+        </div>
     </div>
+    <div id="lottie"></div>
     <div id="media"></div>
     <div id="header">
       <div id="meta">
@@ -27,9 +28,6 @@
       </ul>
     </div>
     <div id="footer">
-      <p>
-        <span id="position"><strong>-</strong> [ms]</span>
-      </p>
       <div id="control" style="display: none">
         <button class="play" disabled>再生</button>
         <button id="jump" disabled>歌詞頭出し</button>

@@ -1,10 +1,30 @@
+body {
+  background: #333;
+}
+
+#text {
+  color: #fff;
+}
+
+#lottie {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 0;
+}
+
 #overlay {
   position: absolute;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
-  background: #0009;
+  background: #fff9;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -21,6 +41,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
+  z-index: 50;
 }
 
 #container > div {
@@ -35,13 +57,14 @@
 
 #lyrics {
   font-size: 6em;
+  color: #fff;
 }
 
 #media {
   position: absolute;
   right: 10px;
   bottom: 10px;
-  background: rgba(0,0,0,0.2);
+  background: #fff3;
 }
 
 #header {
@@ -53,7 +76,7 @@
 #meta {
   margin: 10px;
   padding: 5px;
-  background: rgba(0,0,0,0.2);
+  background: #fff3;
 }
 
 #footer {
@@ -69,7 +92,7 @@
 #control {
   margin: 10px;
   padding: 5px;
-  background: rgba(0,0,0,0.2);
+  background: #fff3;
 }
 
 #control > button {

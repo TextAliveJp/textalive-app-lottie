@@ -1,22 +1,17 @@
 /**
- * TextAlive App API basic example
- * https://github.com/TextAliveJp/textalive-app-basic
+ * TextAlive App API Lottie example
+ * https://github.com/TextAliveJp/textalive-app-lottie
  *
- * API チュートリアル「1. 開発の始め方」のサンプルコードです。
- * 発声中の歌詞を単語単位で表示します。
- * また、このアプリが TextAlive ホストと接続されていなければ再生コントロールを表示します。
- * https://developer.textalive.jp/app/
+ * Adobe After Effects で作成したアニメーションを Lottie プラグインで
+ * 書き出したものをビートに合わせて表示するサンプルコードです。
+ * Lottie 関係の部分以外は basic example そのままです。
+ * 
+ * - https://github.com/TextAliveJp/textalive-app-basic
+ * - https://developer.textalive.jp/app/
  */
 
 import { Player } from "textalive-app-api";
-
-// 単語が発声されていたら #text に表示する
-// Show words being vocalized in #text
-const animateWord = function (now, unit) {
-  if (unit.contains(now)) {
-    document.querySelector("#text").textContent = unit.text;
-  }
-};
+import lottie from "lottie-web";
 
 // TextAlive Player を作る
 // Instantiate a TextAlive Player instance
@@ -28,13 +23,26 @@ const player = new Player({
   mediaElement: document.querySelector("#media"),
 });
 
+// Lottie のアニメーションを読み込む
+// Load Lottie animation
+const lottieContainer = document.querySelector("#lottie");
+const lottiePhase = 0.75;
+const lottieAnimation = lottie.loadAnimation({
+  container: lottieContainer,
+  renderer: "svg",
+  loop: true,
+  autoplay: false,
+  path: "./fw_white.json",
+});
+lottieContainer.style.opacity = 0;
+
 // TextAlive Player のイベントリスナを登録する
 // Register event listeners
 player.addListener({
   onAppReady,
   onVideoReady,
   onTimerReady,
-  onThrottledTimeUpdate,
+  onTimeUpdate,
   onPlay,
   onPause,
   onStop,
@@ -44,8 +52,8 @@ const playBtns = document.querySelectorAll(".play");
 const jumpBtn = document.querySelector("#jump");
 const pauseBtn = document.querySelector("#pause");
 const rewindBtn = document.querySelector("#rewind");
-const positionEl = document.querySelector("#position strong");
 
+const textSpan = document.querySelector("#text");
 const artistSpan = document.querySelector("#artist span");
 const songSpan = document.querySelector("#song span");
 
@@ -55,46 +63,47 @@ const songSpan = document.querySelector("#song span");
  * @param {IPlayerApp} app - https://developer.textalive.jp/packages/textalive-app-api/interfaces/iplayerapp.html
  */
 function onAppReady(app) {
-  // TextAlive ホストと接続されていなければ再生コントロールを表示する
-  // Show control if this app is launched standalone (not connected to a TextAlive host)
-  if (!app.managed) {
-    document.querySelector("#control").style.display = "block";
-
-    // 再生ボタン / Start music playback
-    playBtns.forEach((playBtn) =>
-      playBtn.addEventListener("click", () => {
-        player.video && player.requestPlay();
-      })
-    );
-
-    // 歌詞頭出しボタン / Seek to the first character in lyrics text
-    jumpBtn.addEventListener(
-      "click",
-      () => player.video && player.requestMediaSeek(player.video.firstChar.startTime)
-    );
-
-    // 一時停止ボタン / Pause music playback
-    pauseBtn.addEventListener(
-      "click",
-      () => player.video && player.requestPause()
-    );
-
-    // 巻き戻しボタン / Rewind music playback
-    rewindBtn.addEventListener(
-      "click",
-      () => player.video && player.requestMediaSeek(0)
-    );
-
-    document.querySelector("#header a").setAttribute("href", "https://developer.textalive.jp/app/run/?ta_app_url=https%3A%2F%2Ftextalivejp.github.io%2Ftextalive-app-basic%2F&ta_song_url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DygY2qObZv24");
-  } else {
-    document.querySelector("#header a").setAttribute("href", "https://textalivejp.github.io/textalive-app-basic/");
-  }
-
   // 楽曲URLが指定されていなければ マジカルミライ 2020テーマ曲を読み込む
   // Load a song when a song URL is not specified
   if (!app.songUrl) {
     player.createFromSongUrl("http://www.youtube.com/watch?v=ygY2qObZv24");
   }
+
+  // TextAlive ホストと接続されていたら何もしない
+  // Do nothing if connected to a TextAlive host
+  if (app.managed) {
+    return;
+  }
+
+  // TextAlive ホストと接続されていなければ再生コントロールを表示する
+  // Show control if this app is launched standalone (not connected to a TextAlive host)
+  document.querySelector("#control").style.display = "block";
+
+  // 再生ボタン / Start music playback
+  playBtns.forEach((playBtn) =>
+    playBtn.addEventListener("click", () => {
+      player.video && player.requestPlay();
+    })
+  );
+
+  // 歌詞頭出しボタン / Seek to the first character in lyrics text
+  jumpBtn.addEventListener(
+    "click",
+    () =>
+      player.video && player.requestMediaSeek(player.video.firstChar.startTime)
+  );
+
+  // 一時停止ボタン / Pause music playback
+  pauseBtn.addEventListener(
+    "click",
+    () => player.video && player.requestPause()
+  );
+
+  // 巻き戻しボタン / Rewind music playback
+  rewindBtn.addEventListener(
+    "click",
+    () => player.video && player.requestMediaSeek(0)
+  );
 }
 
 /**
@@ -107,14 +116,6 @@ function onVideoReady(v) {
   // Show meta data
   artistSpan.textContent = player.data.song.artist.name;
   songSpan.textContent = player.data.song.name;
-
-  // 定期的に呼ばれる各単語の "animate" 関数をセットする
-  // Set "animate" function
-  let w = player.video.firstWord;
-  while (w) {
-    w.animate = animateWord;
-    w = w.next;
-  }
 }
 
 /**
@@ -134,20 +135,10 @@ function onTimerReady(t) {
   // 歌詞がなければ歌詞頭出しボタンを無効にする
   // Disable jump button if no lyrics is available
   jumpBtn.disabled = !player.video.firstChar;
-}
 
-/**
- * 動画の再生位置が変更されたときに呼ばれる（あまりに頻繁な発火を防ぐため一定間隔に間引かれる）
- *
- * @param {number} position - https://developer.textalive.jp/packages/textalive-app-api/interfaces/playereventlistener.html#onthrottledtimeupdate
- */
-function onThrottledTimeUpdate(position) {
-  // 再生位置を表示する
-  // Update current position
-  positionEl.textContent = String(Math.floor(position));
-
-  // さらに精確な情報が必要な場合は `player.timer.position` でいつでも取得できます
-  // More precise timing information can be retrieved by `player.timer.position` at any time
+  // 60 fps を狙う
+  // Aim at 60fps
+  player.timer.wait = 1000 / 60;
 }
 
 // 再生が始まったら #overlay を非表示に
@@ -156,11 +147,65 @@ function onPlay() {
   document.querySelector("#overlay").style.display = "none";
 }
 
-// 再生が一時停止・停止したら歌詞表示をリセット
-// Reset lyrics text field when music playback is paused or stopped
+// 再生が一時停止したら Lottie のアニメーションも停止
+// Stop Lottie animation when music playback is paused
 function onPause() {
-  document.querySelector("#text").textContent = "-";
+  lottieAnimation.stop();
 }
+
+// 再生が停止したら歌詞表示をリセット
+// Reset lyrics text field when music playback is stopped
 function onStop() {
-  document.querySelector("#text").textContent = "-";
+  textSpan.textContent = "";
+  lottieAnimation.stop();
+  lottieContainer.style.opacity = 0;
+}
+
+/**
+ * 動画の再生位置が変更されたときに呼ばれる
+ *
+ * @param {number} position - https://developer.textalive.jp/packages/textalive-app-api/interfaces/playereventlistener.html#ontimeupdate
+ */
+function onTimeUpdate(position) {
+  handleChar(position);
+  handleBeat(position);
+}
+
+let char = null,
+  beat = null;
+
+/**
+ * 歌詞を表示 / Show lyrics
+ */
+function handleChar(position) {
+  if (char && char.contains(position)) {
+    return;
+  }
+  char = player.video.findChar(position);
+  if (char) {
+    lottieContainer.style.opacity = 1;
+    textSpan.textContent = char.text;
+  } else {
+    lottieContainer.style.opacity = 0.3;
+    textSpan.textContent = "";
+  }
+}
+
+/**
+ * ビートに合わせて Lottie アニメーションを再生 / Play Lottie animation in response to beats
+ */
+function handleBeat(position) {
+  if (beat && beat.contains(position)) {
+    return;
+  }
+  beat = player.findBeat(position);
+  if (!beat) {
+    return;
+  }
+  const duration = lottieAnimation.getDuration() * 1000;
+  const speed = beat.duration / duration;
+  const offset =
+    (position - beat.startTime + duration * lottiePhase) % duration;
+  lottieAnimation.setSpeed(speed);
+  lottieAnimation.goToAndPlay(offset);
 }
