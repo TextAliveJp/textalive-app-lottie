@@ -17,8 +17,8 @@ import lottie from "lottie-web";
 // Instantiate a TextAlive Player instance
 const player = new Player({
   app: {
-    appAuthor: "Jun Kato",
-    appName: "Basic example",
+    // トークンは https://developer.textalive.jp/profile で取得したものを使う
+    token: "4sIMKQxmrXfdPJpU",
   },
   mediaElement: document.querySelector("#media"),
 });
